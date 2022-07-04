@@ -48,7 +48,7 @@ module.exports = (x) => {
             font-weight: 700;
             font-family: Inter;
             border-bottom: 1px solid rgb(229, 231, 235);
-            margin-bottom: 0;
+            margin-bottom: 20px;
             padding-bottom: 1rem;
         }
 
@@ -104,20 +104,25 @@ module.exports = (x) => {
             margin: 0;
             padding: 0;
             padding-top: 20px;
+         
         }
 
         .side-container ul {
             margin: 0;
-            padding: 0;
+            padding: 0 20px;
         }
 
         .side-container li {
             list-style: none;
             padding: 6px 0 6px 0;
+            border: 1px solid #fff;
+            border-radius: 6px;
         }
 
         .side-container li.selected {
             background: #f4f4f8;
+            border: 1px solid #eaeaed;
+            border-radius: 6px;
         }
 
         .side-container a {
@@ -134,6 +139,62 @@ module.exports = (x) => {
             margin-right: 6px;
             opacity: 0.3;
             margin-left: 20px;
+        }
+
+        .hamburger {
+            margin-left: auto;
+            display: none;
+        }
+
+
+        @media(max-width: 1200px) {
+            .side-container {
+               
+                overflow-y: scroll;
+                height: 100vh;
+                width: 100%;
+                transform: translateX(100%);
+            }
+            .side-container.open {
+                transform: translateX(0);
+            }
+            .hamburger {
+                display: block;
+            }
+        }
+
+     
+        .hamburger .line{
+            width: 16px;
+            height: 2px;
+            background-color: rgb(17, 24, 39);
+            display: block;
+            margin: 3px auto;
+            -webkit-transition: all 0.2s ease-in-out;
+            -o-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .hamburger:hover{
+            cursor: pointer;
+        }
+
+        .hamburger.open .line:nth-child(2){
+            opacity: 0;
+        }
+
+        .hamburger.open .line:nth-child(1){
+            -webkit-transform: translateY(5px) rotate(45deg);
+            -ms-transform: translateY(5px) rotate(45deg);
+            -o-transform: translateY(5px) rotate(45deg);
+            transform: translateY(5px) rotate(45deg);
+        }
+
+        .hamburger.open .line:nth-child(3){
+            -webkit-transform: translateY(-5px) rotate(-45deg);
+            -ms-transform: translateY(-5px) rotate(-45deg);
+            -o-transform: translateY(-5px) rotate(-45deg);
+            transform: translateY(-5px) rotate(-45deg);
         }
 
         code[class*='language-'],
@@ -274,9 +335,20 @@ module.exports = (x) => {
 </head>
 <body>
     <nav>
-        <p>${x.docsTitle}</p>
+        ${
+            x.logo
+                ? `${x.logo}<p style='margin-left: 6px; font-weight: bold'>${x.docsTitle}</p>`
+                : `<p style='font-weight: bold'>${x.docsTitle}</p>`
+        }
+        <p style='font-weight: normal; color: #adb3be; margin-left: 4px;'> Documentation</p>
+     
+        <div id='menu-button' class="hamburger" id="hamburger-1">
+          <span class="line"></span>
+          <span class="line"></span>
+          <span class="line"></span>
+        </div>
     </nav>
-    <div class="side-container">
+    <div id='menu' class="side-container">
         <ul>
             ${links.reduce((acc, x) => {
                 const h = makeLink(x)
@@ -287,6 +359,20 @@ module.exports = (x) => {
     <div class='wrapper'>
         ${x.body}
     </div>
+    <script>
+            let menuOpen = false;
+            document.getElementById('menu-button')
+                .addEventListener('click', () => {
+                    menuOpen = !menuOpen
+                    if (menuOpen) {
+                        document.getElementById('menu').className = 'side-container open'
+                        document.getElementById('menu-button').className = 'hamburger open'
+                    } else {
+                        document.getElementById('menu').className = 'side-container'
+                        document.getElementById('menu-button').className = 'hamburger'
+                    }
+                })
+    </script>
 </body>
 </html>`
 }

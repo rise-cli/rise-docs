@@ -51,6 +51,7 @@ exports.getProjectData = async function getProjectData(cli) {
 
     let projectData = {
         title: config.title,
+        logo: config.logo || '',
         bucketName,
         pages: {}
     }

@@ -48,7 +48,8 @@ function handleMarkdownFile(x, projectData) {
         body: withPre,
         pages: projectData.pages,
         pageName: x.pageName,
-        docsTitle: projectData.title
+        docsTitle: projectData.title,
+        logo: projectData.logo
     })
 
     return result
