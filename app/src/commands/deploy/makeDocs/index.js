@@ -1,8 +1,15 @@
 const { marked } = require('marked')
 const shell = require('./shell.js')
+const Prism = require('prismjs')
+require('prismjs/components/prism-rust')
+require('prismjs/components/prism-bash')
+require('prismjs/components/prism-typescript')
 
 marked.setOptions({
     renderer: new marked.Renderer(),
+    highlight: function (code, lang) {
+        return Prism.highlight(code, Prism.languages[lang])
+    },
     langPrefix: 'hljs language-', // highlight.js css expects a top-level 'hljs' class.
     pedantic: false,
     gfm: true,
@@ -29,6 +36,16 @@ const addClassToPreTags = (html) => {
             html.replace(
                 /<pre><code class="hljs language-rs">/g,
                 '<pre class="hljs language-js"><code class="hljs language-rs">'
+            ),
+        (html) =>
+            html.replace(
+                /<pre><code class="hljs language-rust">/g,
+                '<pre class="hljs language-rust"><code class="hljs language-rust">'
+            ),
+        (html) =>
+            html.replace(
+                /<pre><code class="hljs language-bash">/g,
+                '<pre class="hljs language-bash"><code class="hljs language-bash">'
             )
     ]
 
