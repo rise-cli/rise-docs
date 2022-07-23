@@ -1,6 +1,7 @@
 const makeCli = require('rise-cli-foundation')
 const makeRiseAws = require('rise-aws-foundation')
-const deploy = require('./commands/deploy/index.js')
+const deploy = require('./commands/deploy/deploy.js')
+const remove = require('./commands/remove')
 const generate = require('./commands/deploy/generate.js')
 
 module.exports = (projectRoot) => {
@@ -32,6 +33,14 @@ module.exports = (projectRoot) => {
         description: 'Generate Docs in a /docs folder locally',
         action: (flags) => {
             generate(cli, riseAws, flags)
+        }
+    })
+
+    cli.terminal.makeCommand({
+        command: 'remove',
+        description: 'Remove Docs',
+        action: (flags) => {
+            remove(cli, riseAws, flags)
         }
     })
 

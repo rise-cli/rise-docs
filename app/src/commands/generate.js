@@ -1,6 +1,6 @@
-const { getProjectData } = require('./getProjectData')
-const { makeDocs } = require('./makeDocs')
-const { writeProject } = require('./writeProject/writeLocal.js')
+const { getProjectData } = require('./_common/getProjectData')
+const { makeDocs } = require('./_common/makeDocs')
+const { writeProject } = require('./_common/writeProject/writeLocal.js')
 
 async function main(cli) {
     let projectData = await getProjectData(cli)

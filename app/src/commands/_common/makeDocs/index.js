@@ -65,7 +65,7 @@ function handleMarkdownFile(x, projectData) {
         body: withPre,
         pages: projectData.pages,
         pageName: x.pageName,
-        docsTitle: projectData.title,
+        docsTitle: projectData.name,
         logo: projectData.logo
     })
 
@@ -74,7 +74,7 @@ function handleMarkdownFile(x, projectData) {
 
 exports.makeDocs = function makeDocs(projectData) {
     let compiledProjectData = {
-        title: projectData.title,
+        title: projectData.name,
         pages: {}
     }
 

@@ -1,35 +1,40 @@
 const { makeHiddenFolder } = require('./makeHiddenFolder.js')
 async function getBucketInfo(cli) {
     let bucketName = undefined
+    let appId = undefined
     try {
         const data = await cli.filesystem.getJsFile('/.docs/data.js')
         bucketName = data.bucketName
+        appId = data.appId
     } catch (e) {
         bucketName = undefined
     }
-    return bucketName
+    return {
+        bucketName,
+        appId
+    }
 }
 
 async function getConfig(cli) {
     let config = null
     try {
-        config = await cli.filesystem.getJsFile('/docs.js')
+        config = await cli.filesystem.getJsFile('/rise.js')
     } catch (e) {
-        throw new Error('Project must have a docs.js file')
+        throw new Error('Project must have a rise.js file')
     }
 
-    if (!config.title || typeof config.title !== 'string') {
-        throw new Error('doc.js file must have a title defined')
+    if (!config.name || typeof config.name !== 'string') {
+        throw new Error('rise.js file must have a name defined')
     }
 
     if (!config.sidebar) {
-        throw new Error('doc.js file must have a sidebar defined')
+        throw new Error('rise.js file must have a sidebar defined')
     }
 
     Object.keys(config.sidebar).forEach((k) => {
         if (typeof config.sidebar[k] !== 'string') {
             throw new Error(
-                'doc.js file must have a sidebar whose values are strings'
+                'rise.js file must have a sidebar whose values are strings'
             )
         }
     })
@@ -37,23 +42,42 @@ async function getConfig(cli) {
     return config
 }
 
-// function readMdFile(x) {
-//     const mdFile = fs.readFileSync(process.cwd() + '/' + x, 'utf8')
-//     return mdFile
-// }
-
 exports.getProjectData = async function getProjectData(cli) {
     makeHiddenFolder(cli)
 
-    const bucketName = await getBucketInfo(cli)
+    const { bucketName, appId } = await getBucketInfo(cli)
 
     const config = await getConfig(cli)
 
+    if (config.auth && !config.auth.username) {
+        throw new Error(`rise.js auth must have a username property`)
+    }
+
+    if (config.auth && !config.auth.password) {
+        throw new Error(`rise.js auth must have a password property`)
+    }
+
+    if (
+        config.auth &&
+        config.auth.password &&
+        config.auth.password.length < 8
+    ) {
+        throw new Error(`rise.js auth password must be at least 8 characters`)
+    }
+
     let projectData = {
-        title: config.title,
+        name: config.name,
         logo: config.logo || '',
         bucketName,
-        pages: {}
+        appId,
+        pages: {},
+        distFolder: 'dist',
+        auth: !config.auth
+            ? false
+            : {
+                  username: config.auth.username,
+                  password: config.auth.password
+              }
     }
 
     for (const k of Object.keys(config.sidebar)) {
@@ -65,28 +89,12 @@ exports.getProjectData = async function getProjectData(cli) {
         const pageContent = await cli.filesystem.getTextContent('/' + fileName)
 
         projectData.pages[fileName] = {
-            pageName: k, //fileName.split('.')[0],
+            pageName: k,
             pageContent,
             fileName,
             htmlFileName: fileName.split('.')[0] + '.html'
         }
     }
-
-    // Object.keys(config.sidebar).forEach((k) => {
-    //     const fileName = config.sidebar[k]
-    //     if (fileName === '_index.md') {
-    //         throw new Error('_index.md is a reserved name and cannot be used')
-    //     }
-    //     const pageContent = await cli.filesystem.getFile(fileName) //readMdFile(fileName)
-
-    //     console.log('>>> ', pageContent)
-    //     projectData.pages[fileName] = {
-    //         pageName: k, //fileName.split('.')[0],
-    //         pageContent,
-    //         fileName,
-    //         htmlFileName: fileName.split('.')[0] + '.html'
-    //     }
-    // })
 
     return projectData
 }
