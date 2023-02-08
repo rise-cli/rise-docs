@@ -19,16 +19,10 @@ You can generate html files from a docs project using the generate command
 rise-docs generate
 ```
 
-You can deploy a docs project to AWS Amplify using the deploy command
+You can deploy a docs project using the deploy command
 
 ```bash
 rise-docs deploy
-```
-
-You can remove a docs project dpeloyed to AWS Amplufy with the remove command
-
-```bash
-rise-docs remove
 ```
 
 ## Configuration
@@ -36,8 +30,8 @@ rise-docs remove
 A rise.mjs file must have a name and a sidebar defined, and can optionally have a logo defined:
 
 ```js
-// rise.js
-module.exports = {
+// rise.mjs
+export default {
     // required
     name: 'Rise Docs',
     sidebar: {
