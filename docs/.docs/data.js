@@ -1,1 +1,0 @@
-module.exports = { bucketName: "risedocsdocsdev-bucket-mainbucket-1jdtfw99hgdpv"}

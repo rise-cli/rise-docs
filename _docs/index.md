@@ -1,8 +1,8 @@
-# Introduction to Rise Docs
+# Rise Docs
 
 The goal of rise-docs is to make building a documentation site as easy and low friction as possible. A rise-docs project consists of 2 things:
 
--   a rise.js file
+-   a rise.mjs file
 -   markdown files
 
 ## Installation
@@ -33,7 +33,7 @@ rise-docs remove
 
 ## Configuration
 
-A rise.js file must have a name and a sidebar defined, and can optionally have a logo defined:
+A rise.mjs file must have a name and a sidebar defined, and can optionally have a logo defined:
 
 ```js
 // rise.js
@@ -45,11 +45,7 @@ module.exports = {
         PageTwo: 'other.md'
     },
     // optional
-    logo: '<svg>...</svg>',
-    auth: {
-        username: 'my-user-name',
-        password: 'my-password-that-is-at-least-8-characters'
-    }
+    logo: '<svg>...</svg>'
 }
 ```
 

@@ -1,7 +1,6 @@
-module.exports = (x) => {
+export const makeShell = (x) => {
     const makeLink = (x) => `<li class='${x.selected && 'selected'}'>
     <a href='${x.link}'>
-      
         <span>${x.label}</span>
     </a>
 </li>
@@ -359,6 +358,7 @@ module.exports = (x) => {
     <div class='wrapper'>
         ${x.body}
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
     <script>
             let menuOpen = false;
             document.getElementById('menu-button')

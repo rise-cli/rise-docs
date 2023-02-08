@@ -1,15 +1,8 @@
-const { marked } = require('marked')
-const shell = require('./shell.js')
-const Prism = require('prismjs')
-require('prismjs/components/prism-rust')
-require('prismjs/components/prism-bash')
-require('prismjs/components/prism-typescript')
+import { makeShell } from './shell.mjs'
+import * as marked from 'marked'
 
 marked.setOptions({
     renderer: new marked.Renderer(),
-    highlight: function (code, lang) {
-        return Prism.highlight(code, Prism.languages[lang])
-    },
     langPrefix: 'hljs language-', // highlight.js css expects a top-level 'hljs' class.
     pedantic: false,
     gfm: true,
@@ -61,7 +54,7 @@ function handleMarkdownFile(x, projectData) {
     const html = marked.parse(x.pageContent)
     const withPre = addClassToPreTags(html)
 
-    const result = shell({
+    const result = makeShell({
         body: withPre,
         pages: projectData.pages,
         pageName: x.pageName,
@@ -72,7 +65,7 @@ function handleMarkdownFile(x, projectData) {
     return result
 }
 
-exports.makeDocs = function makeDocs(projectData) {
+export async function makeDocs(projectData) {
     let compiledProjectData = {
         title: projectData.name,
         pages: {}

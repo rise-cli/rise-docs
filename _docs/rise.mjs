@@ -1,5 +1,5 @@
 module.exports = {
-    title: 'Rise Docs',
+    name: 'Rise Docs',
     logo: `<svg  height="14px" viewBox="0 0 50 50" version="1.1">
     <defs>
         <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">

@@ -350,7 +350,7 @@
         <h1 id="introduction-to-rise-docs">Introduction to Rise Docs</h1>
 <p>The goal of rise-docs is to make building a documentation site as easy and low friction as possible. A rise-docs project consists of 2 things:</p>
 <ul>
-<li>a docs.js file</li>
+<li>a rise.js file</li>
 <li>markdown files</li>
 </ul>
 <h2 id="installation">Installation</h2>
@@ -360,17 +360,27 @@
 <p>You can generate html files from a docs project using the generate command</p>
 <pre class="hljs language-bash"><code class="hljs language-bash">rise-docs generate
 </code></pre>
-<p>You can deplot a docs project to Lambda nd ApiGatway usine the deploy command</p>
+<p>You can deploy a docs project to AWS Amplify using the deploy command</p>
 <pre class="hljs language-bash"><code class="hljs language-bash">rise-docs deploy
 </code></pre>
+<p>You can remove a docs project dpeloyed to AWS Amplufy with the remove command</p>
+<pre class="hljs language-bash"><code class="hljs language-bash">rise-docs remove
+</code></pre>
 <h2 id="configuration">Configuration</h2>
-<p>A docs file must have a name and a sidebar defined, and can optionally have a logo defined:</p>
-<pre class="hljs language-js"><code class="hljs language-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
-    <span class="token literal-property property">title</span><span class="token operator">:</span> <span class="token string">'Rise Docs'</span><span class="token punctuation">,</span>
-    <span class="token literal-property property">logo</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">&lt;svg>...&lt;/svg></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+<p>A rise.js file must have a name and a sidebar defined, and can optionally have a logo defined:</p>
+<pre class="hljs language-js"><code class="hljs language-js"><span class="token comment">// rise.js</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token comment">// required</span>
+    <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'Rise Docs'</span><span class="token punctuation">,</span>
     <span class="token literal-property property">sidebar</span><span class="token operator">:</span> <span class="token punctuation">{</span>
         <span class="token literal-property property">PageOne</span><span class="token operator">:</span> <span class="token string">'index.md'</span><span class="token punctuation">,</span>
-        <span class="token literal-property property">PageTwo</span><span class="token operator">:</span> 'other<span class="token punctuation">.</span>md
+        <span class="token literal-property property">PageTwo</span><span class="token operator">:</span> <span class="token string">'other.md'</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token comment">// optional</span>
+    <span class="token literal-property property">logo</span><span class="token operator">:</span> <span class="token string">'&lt;svg>...&lt;/svg>'</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">auth</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">username</span><span class="token operator">:</span> <span class="token string">'my-user-name'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">password</span><span class="token operator">:</span> <span class="token string">'my-password-that-is-at-least-8-characters'</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
