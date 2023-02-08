@@ -1,8 +1,11 @@
 {
     "name": "rise-docs",
-    "version": "0.0.14",
+    "version": "0.0.15",
     "description": "",
     "main": "index.mjs",
+    "bin": {
+        "rise-docs": "./index.mjs"
+    },
     "scripts": {
         "release": "npm publish"
     },
