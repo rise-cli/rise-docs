@@ -316,11 +316,11 @@
 </head>
 <body>
     <nav>
-        <svg  height="14px" viewBox="0 0 50 50" version="1.1">
+        <svg height="14px" viewBox="0 0 50 50" version="1.1">
     <defs>
         <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
-            <stop stop-color="#F0649B" offset="0%"></stop>
-            <stop stop-color="#E95076" offset="100%"></stop>
+            <stop stop-color="#28c5bd" offset="0%"></stop>
+            <stop stop-color="#119fb5" offset="100%"></stop>
         </linearGradient>
     </defs>
     <g id="logo" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -339,7 +339,6 @@
         <ul>
             <li class='selected'>
     <a href='index.html'>
-      
         <span>Intro</span>
     </a>
 </li>
@@ -347,46 +346,40 @@
         </ul>
     </div>
     <div class='wrapper'>
-        <h1 id="introduction-to-rise-docs">Introduction to Rise Docs</h1>
+        <h1 id="rise-docs">Rise Docs</h1>
 <p>The goal of rise-docs is to make building a documentation site as easy and low friction as possible. A rise-docs project consists of 2 things:</p>
 <ul>
-<li>a rise.js file</li>
+<li>a rise.mjs file</li>
 <li>markdown files</li>
 </ul>
 <h2 id="installation">Installation</h2>
-<pre class="hljs language-bash"><code class="hljs language-bash"><span class="token function">npm</span> i -g rise-docs
+<pre class="hljs language-bash"><code class="hljs language-bash">npm i -g rise-docs
 </code></pre>
 <h2 id="usage">Usage</h2>
 <p>You can generate html files from a docs project using the generate command</p>
 <pre class="hljs language-bash"><code class="hljs language-bash">rise-docs generate
 </code></pre>
-<p>You can deploy a docs project to AWS Amplify using the deploy command</p>
+<p>You can deploy a docs project using the deploy command</p>
 <pre class="hljs language-bash"><code class="hljs language-bash">rise-docs deploy
 </code></pre>
-<p>You can remove a docs project dpeloyed to AWS Amplufy with the remove command</p>
-<pre class="hljs language-bash"><code class="hljs language-bash">rise-docs remove
-</code></pre>
 <h2 id="configuration">Configuration</h2>
-<p>A rise.js file must have a name and a sidebar defined, and can optionally have a logo defined:</p>
-<pre class="hljs language-js"><code class="hljs language-js"><span class="token comment">// rise.js</span>
-module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
-    <span class="token comment">// required</span>
-    <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'Rise Docs'</span><span class="token punctuation">,</span>
-    <span class="token literal-property property">sidebar</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token literal-property property">PageOne</span><span class="token operator">:</span> <span class="token string">'index.md'</span><span class="token punctuation">,</span>
-        <span class="token literal-property property">PageTwo</span><span class="token operator">:</span> <span class="token string">'other.md'</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token comment">// optional</span>
-    <span class="token literal-property property">logo</span><span class="token operator">:</span> <span class="token string">'&lt;svg>...&lt;/svg>'</span><span class="token punctuation">,</span>
-    <span class="token literal-property property">auth</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token literal-property property">username</span><span class="token operator">:</span> <span class="token string">'my-user-name'</span><span class="token punctuation">,</span>
-        <span class="token literal-property property">password</span><span class="token operator">:</span> <span class="token string">'my-password-that-is-at-least-8-characters'</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+<p>A rise.mjs file must have a name and a sidebar defined, and can optionally have a logo defined:</p>
+<pre class="hljs language-js"><code class="hljs language-js">// rise.mjs
+export default {
+    // required
+    name: &#39;Rise Docs&#39;,
+    sidebar: {
+        PageOne: &#39;index.md&#39;,
+        PageTwo: &#39;other.md&#39;
+    },
+    // optional
+    logo: &#39;&lt;svg&gt;...&lt;/svg&gt;&#39;
+}
 </code></pre>
 <p>The sidebar is a map, the key is the name that will show up on the sidebar menu, and the value is the md file</p>
 
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
     <script>
             let menuOpen = false;
             document.getElementById('menu-button')
